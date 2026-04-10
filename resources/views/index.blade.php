@@ -6,48 +6,57 @@
     <title>Task Manager Laravel App</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans min-h-screen p-6">
+
+<body class="bg-black text-gray-200 font-mono min-h-screen p-6">
 
     <div class="max-w-4xl mx-auto">
 
         <!-- HEADER -->
-        <header class="mb-8">
-            <h1 class="text-4xl font-extrabold text-pink-500 tracking-wide mb-1">
-                Task Manager Laravel App
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-extrabold text-red-500 tracking-widest mb-1">
+                TASK MANAGER
             </h1>
-            <p class="text-gray-400">Manage your tasks efficiently.</p>
+            <p class="text-gray-500 text-sm">Operational dashboard active.</p>
         </header>
 
         <!-- ADD TASK FORM -->
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg mb-8 border border-pink-600">
-            <h2 class="text-2xl font-bold mb-4 text-pink-400">Add Task</h2>
+        <div class="bg-zinc-900 p-6 rounded-xl shadow-2xl mb-8 border border-red-800">
+            <h2 class="text-2xl font-bold mb-4 text-red-400">Add Task</h2>
 
             <form action="/tasks" method="POST" class="space-y-3">
                 @csrf
+
                 <input type="text" name="title" placeholder="Task Title"
-                    class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-100" required>
+                    class="w-full p-3 rounded-lg bg-black border border-red-900 focus:outline-none focus:ring-2 focus:ring-red-600 text-gray-200" required>
 
                 <textarea name="description" placeholder="Task Description"
-                    class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 text-gray-100"></textarea>
+                    class="w-full p-3 rounded-lg bg-black border border-red-900 focus:outline-none focus:ring-2 focus:ring-red-600 text-gray-200"></textarea>
 
-                <button class="bg-pink-500 hover:bg-pink-600 transition text-white px-6 py-2 rounded-lg font-bold">
+                <button class="bg-red-700 hover:bg-red-600 transition text-white px-6 py-2 rounded-lg font-bold shadow-lg hover:shadow-red-900/50">
                     Add Task
                 </button>
             </form>
         </div>
 
         <!-- TASK LIST -->
-        <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-pink-600">
-            <h2 class="text-2xl font-bold mb-4 text-pink-400">Task List</h2>
+        <div class="bg-zinc-900 p-6 rounded-xl shadow-2xl border border-red-800">
+            <h2 class="text-2xl font-bold mb-4 text-red-400">Task List</h2>
 
             @foreach ($tasks as $task)
-                <div class="border-b border-gray-700 py-4 flex flex-col md:flex-row md:justify-between md:items-center">
+                <div class="border-b border-red-900 py-4 flex flex-col md:flex-row md:justify-between md:items-center">
+
                     <!-- DISPLAY -->
                     <div class="mb-3 md:mb-0">
-                        <h3 class="text-lg font-bold text-pink-300">{{ $task->title }}</h3>
-                        <p class="text-gray-300">{{ $task->description }}</p>
-                        <span class="{{ $task->is_completed ? 'text-green-400' : 'text-red-400' }} font-semibold">
-                            {{ $task->is_completed ? 'Completed' : 'Not Completed' }}
+                        <h3 class="text-lg font-bold text-red-300 tracking-wide">
+                            {{ $task->title }}
+                        </h3>
+
+                        <p class="text-gray-400">
+                            {{ $task->description }}
+                        </p>
+
+                        <span class="{{ $task->is_completed ? 'text-green-400' : 'text-red-500' }} font-semibold text-sm">
+                            {{ $task->is_completed ? 'Completed' : 'Pending' }}
                         </span>
                     </div>
 
@@ -58,16 +67,18 @@
                         <form action="/tasks/{{ $task->id }}" method="POST" class="flex gap-2 flex-wrap items-center">
                             @csrf
                             @method('PUT')
-                            <input type="text" name="title" value="{{ $task->title }}"
-                                class="p-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-100 focus:outline-none focus:ring-2 focus:ring-pink-500">
 
-                            <label class="flex items-center gap-1 text-gray-200">
-                                <input type="checkbox" name="is_completed" value="1" {{ $task->is_completed ? 'checked' : '' }}
-                                    class="w-5 h-5 accent-pink-500">
-                                Completed
+                            <input type="text" name="title" value="{{ $task->title }}"
+                                class="p-2 rounded-lg bg-black border border-red-900 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-600">
+
+                            <label class="flex items-center gap-1 text-gray-300 text-sm">
+                                <input type="checkbox" name="is_completed" value="1"
+                                    {{ $task->is_completed ? 'checked' : '' }}
+                                    class="w-5 h-5 accent-red-600">
+                                Done
                             </label>
 
-                            <button class="bg-yellow-500 hover:bg-yellow-600 transition text-gray-900 px-3 py-1 rounded font-bold">
+                            <button class="bg-yellow-600 hover:bg-yellow-500 transition text-black px-3 py-1 rounded font-bold">
                                 Update
                             </button>
                         </form>
@@ -76,14 +87,17 @@
                         <form action="/tasks/{{ $task->id }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="bg-red-500 hover:bg-red-600 transition text-white px-3 py-1 rounded font-bold">
+
+                            <button class="bg-red-700 hover:bg-red-600 transition text-white px-3 py-1 rounded font-bold">
                                 Delete
                             </button>
                         </form>
 
                     </div>
+
                 </div>
             @endforeach
+
         </div>
 
     </div>
