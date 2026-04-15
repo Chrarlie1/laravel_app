@@ -5,7 +5,7 @@ use App\Http\Controllers\GreetController;
 use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('greet');
 });
 
 Route::get('/greet', [GreetController::class, 'greet']);
@@ -15,3 +15,4 @@ Route::get('/hello', function () {
 });
 
 Route::resource('tasks', TaskController::class);
+

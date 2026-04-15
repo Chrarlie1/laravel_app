@@ -12,25 +12,26 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Task::all();
+        $tasks = Task::all(); // fetch all tasks from DB
+        return view('index', compact('tasks')); // pass tasks to view
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource in the db.
      */
     public function create() {}
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in db.
      */
     public function store(Request $request)
     {
-        $task = Task::create($request->all());
-        return response()->json($task);
+        Task::create($request->all());
+        return redirect()->back();
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified db.
      */
     public function show(Task $task)
     {
@@ -38,7 +39,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified db.
      */
     public function edit(string $id)
     {
@@ -46,20 +47,22 @@ class TaskController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in db.
      */
+
     public function update(Request $request, Task $task)
     {
         $task->update($request->all());
-        return response()->json($task);
+        return redirect()->back();
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from db.
      */
     public function destroy(Task $task)
     {
         $task->delete();
-        return response()->json(['message' => 'Task deleted']);
+        return redirect()->back();
     }
 }
