@@ -1,11 +1,119 @@
-@import 'tailwindcss';
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* Animations */
+.fade-in {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeIn 1s ease-out forwards;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Layout */
+body {
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  height: 100%;
+  color: #e0e0e0;
+}
+
+/* Pages */
+.page-greet {
+  background: linear-gradient(135deg, rgba(10,10,10,0.7), rgba(26,26,26,0.7) 50%, rgba(13,13,13,0.7)),
+  url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flimbuscompany.wiki.gg%2Fimages%2F0%2F00%2FStory_L_Corp._HQ_Control_Team_Hallway_1_BG.png&f=1&nofb=1");
+  background-size: cover;
+  background-position: center;
+}
+
+.page-tasks {
+  background: linear-gradient(135deg, rgba(0,0,0,0.85), rgba(20,10,0,0.85)),
+  url("https://limbuscompany.wiki.gg/images/Story_Aboard_Mephistopheles_Boat_1_BG.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Glow overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 180px rgba(255, 140, 0, 0.25);
+  background: radial-gradient(circle at center, rgba(255,180,80,0.08), transparent 10%);
+}
+
+
+/* === TOGGLE SWITCH === */
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* hide checkbox */
+.toggle input {
+  display: none;
+}
+
+/* track */
+.slider {
+  width: 48px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #d1a300;
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* knob */
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  background: #fbbf24; /* amber */
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* checked state */
+.toggle input:checked + .slider {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+.toggle input:checked + .slider::before {
+  transform: translate(24px, -50%);
+}
+
+/* text */
+.label-text {
+  color: #fbbf24;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.toggle:hover .label-text {
+  color: #fde68a;
 }
